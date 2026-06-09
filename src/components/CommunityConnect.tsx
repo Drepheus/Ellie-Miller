@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Tv2, Users, Radio } from 'lucide-react';
+import { ExternalLink, Radio, Calendar, Play, Heart, MessageCircle, Zap, Eye, BookOpen, Mic, Film, Users } from 'lucide-react';
 
 type IconProps = { className?: string; style?: React.CSSProperties };
 
@@ -23,82 +23,84 @@ const YoutubeIcon = ({ className, style }: IconProps) => (
   </svg>
 );
 
-type Channel = {
-  id: string;
-  platform: string;
-  handle: string;
-  icon: React.ComponentType<IconProps>;
-  url: string;
-  color: string;
-  bgColor: string;
-  borderColor: string;
-  description: string;
-  badge: string;
-  badgeIcon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
-  stat: string;
-};
-
-const CHANNELS: Channel[] = [
+const PLATFORMS = [
   {
-    id: 'channel-tiktok',
+    id: 'tiktok-section',
     platform: 'TikTok',
     handle: '@PinkPansyPublishing',
-    icon: TikTokIcon,
     url: 'https://www.tiktok.com/@pinkpansypublishing',
-    color: '#b01218',
-    bgColor: 'rgba(176,18,24,0.08)',
-    borderColor: 'rgba(176,18,24,0.2)',
-    description: 'Live readings, author vlogs, behind-the-scenes writing sessions & book reveals.',
-    badge: 'Live Events',
-    badgeIcon: Radio,
-    stat: 'Live & Stories',
+    icon: TikTokIcon,
+    ctaLabel: 'Follow on TikTok',
+    liveBadge: true,
+    accentColor: '#b01218',
+    borderColor: 'rgba(176,18,24,0.25)',
+    bgGlow: 'rgba(176,18,24,0.07)',
+    headline: 'Live Readings & Behind-the-Scenes',
+    tagline: 'The most raw, unfiltered look at what it means to write dark Christian fiction.',
+    description:
+      'TikTok is where the action happens. Ellie goes live for unscripted book readings, first-draft confessions, spiritual warfare devotionals, and late-night author vlogs. If you want to be in the room when a story is born — this is your place.',
+    contentTypes: [
+      { icon: Radio, label: 'Weekly Live Readings', desc: 'Real-time chapter reads with live Q&A' },
+      { icon: Film, label: 'Writing Vlogs', desc: 'Behind-the-scenes of the dark fiction process' },
+      { icon: Zap, label: 'Book Reveals', desc: 'Cover drops, title announcements, and more' },
+      { icon: Mic, label: 'Faith & Fiction Talks', desc: 'Short-form theological discussions' },
+    ],
   },
   {
-    id: 'channel-facebook',
+    id: 'facebook-section',
     platform: 'Facebook',
     handle: 'Ellie Miller Books',
-    icon: FacebookIcon,
     url: 'https://www.facebook.com/elliemillerbooks/',
-    color: '#7a9ecf',
-    bgColor: 'rgba(122,158,207,0.06)',
-    borderColor: 'rgba(122,158,207,0.15)',
-    description: 'Join the community. Connect with fellow readers, share thoughts, and join monthly discussion groups.',
-    badge: 'Community',
-    badgeIcon: Users,
-    stat: 'Reader Community',
+    icon: FacebookIcon,
+    ctaLabel: 'Join the Group',
+    liveBadge: false,
+    accentColor: '#5a8ac9',
+    borderColor: 'rgba(90,138,201,0.25)',
+    bgGlow: 'rgba(90,138,201,0.06)',
+    headline: 'The Reader Community Hub',
+    tagline: 'A gathering place for believers who love dark, faith-affirming fiction.',
+    description:
+      'The Facebook community is Ellie\'s most intimate corner of the internet. Readers share reviews, discuss theological themes, and connect with other Christians who believe that darkness in fiction can be used as a tool for light. Monthly book discussions, prayer threads, and exclusive announcements live here.',
+    contentTypes: [
+      { icon: Users, label: 'Monthly Book Club', desc: 'Guided discussions on each release' },
+      { icon: Heart, label: 'Prayer & Community', desc: 'A safe space for faith conversations' },
+      { icon: MessageCircle, label: 'Reader Reviews', desc: 'Share your thoughts and reactions' },
+      { icon: Calendar, label: 'Exclusive Events', desc: 'First access to signings and launches' },
+    ],
   },
   {
-    id: 'channel-youtube',
+    id: 'youtube-section',
     platform: 'YouTube',
     handle: '@PinkPansyPublishing',
-    icon: YoutubeIcon,
     url: 'https://www.youtube.com/@PinkPansyPublishing/videos',
-    color: '#c0392b',
-    bgColor: 'rgba(192,57,43,0.07)',
-    borderColor: 'rgba(192,57,43,0.18)',
-    description: 'Deep dives into theology, author interviews, chapter reads, and the craft of Christian dark fiction.',
-    badge: 'Video Channel',
-    badgeIcon: Tv2,
-    stat: 'Watch Now',
+    icon: YoutubeIcon,
+    ctaLabel: 'Watch on YouTube',
+    liveBadge: false,
+    accentColor: '#c0392b',
+    borderColor: 'rgba(192,57,43,0.25)',
+    bgGlow: 'rgba(192,57,43,0.07)',
+    headline: 'Deep Dives Into Faith & Craft',
+    tagline: 'Long-form content for readers and writers who want to go deeper.',
+    description:
+      'YouTube is the classroom. Full-length author interviews, chapter-by-chapter theological breakdowns, writing tutorials for aspiring dark fiction authors, and documentary-style explorations of the spiritual themes in the Los Elegidos universe. Subscribe to never miss a new upload.',
+    contentTypes: [
+      { icon: Play, label: 'Full Chapter Reads', desc: 'Narrated readings of complete chapters' },
+      { icon: BookOpen, label: 'Theology Deep Dives', desc: 'Unpacking the faith inside the fiction' },
+      { icon: Eye, label: 'Craft Tutorials', desc: 'Writing dark fiction the right way' },
+      { icon: Film, label: 'Author Interviews', desc: 'Inside the mind of Ellie Miller' },
+    ],
   },
 ];
 
 export default function CommunityConnect() {
   return (
-    <section id="community" className="relative py-36 overflow-hidden noise-overlay" style={{ background: 'linear-gradient(to bottom, #050203, #080104, #050203)' }}>
+    <section id="community" className="relative overflow-hidden noise-overlay" style={{ background: '#050203' }}>
 
-      {/* Ambient */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(176,18,24,0.2), transparent)' }} />
-        <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(176,18,24,0.2), transparent)' }} />
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(107,6,16,0.08) 0%, transparent 65%)' }} />
-      </div>
-
-      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
-
-        {/* Header */}
+      {/* Section Header */}
+      <div className="relative py-24 text-center" style={{ borderTop: '1px solid rgba(176,18,24,0.15)' }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, rgba(107,6,16,0.1) 0%, transparent 65%)' }} />
         <motion.div
-          className="text-center mb-20"
+          className="relative z-10 container mx-auto px-6"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -110,103 +112,145 @@ export default function CommunityConnect() {
             <div className="w-8 h-px" style={{ background: 'rgba(176,18,24,0.6)' }} />
           </div>
           <h2 className="text-4xl md:text-6xl font-serif font-black text-accent mb-4 tracking-wide">
-            Join the <span className="gradient-text-crimson">Community</span>
+            Connect Across <span className="gradient-text-crimson">Every Platform</span>
           </h2>
-          <p className="text-stone-500 max-w-lg mx-auto font-light text-sm leading-relaxed">
-            Connect across platforms. Live events on TikTok, deep discussions on YouTube, and a thriving reader family on Facebook.
+          <p className="text-stone-500 max-w-xl mx-auto font-light text-sm leading-relaxed">
+            Each platform serves a different purpose. Find your place in the community — live events, deep discussions, or long-form content.
           </p>
-        </motion.div>
-
-        {/* Channel Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {CHANNELS.map((ch, i) => (
-            <motion.a
-              key={ch.id}
-              id={ch.id}
-              href={ch.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative flex flex-col p-7 rounded-sm overflow-hidden transition-all duration-500 focus:outline-none"
-              style={{
-                background: ch.bgColor,
-                border: `1px solid ${ch.borderColor}`,
-                backdropFilter: 'blur(16px)',
-              }}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.12 }}
-              whileHover={{ y: -6, transition: { duration: 0.3 } }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = `0 20px 50px rgba(0,0,0,0.8), 0 0 30px ${ch.bgColor.replace('0.0', '0.2')}`;
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-              }}
-            >
-              {/* Subtle top edge glow */}
-              <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: `linear-gradient(to right, transparent, ${ch.color}50, transparent)` }} />
-
-              {/* Platform Icon */}
-              <div className="flex items-center justify-between mb-6">
-                <div
-                  className="w-12 h-12 flex items-center justify-center rounded-sm"
-                  style={{ background: `${ch.bgColor}`, border: `1px solid ${ch.borderColor}` }}
-                >
-                  <ch.icon className="w-6 h-6" style={{ color: ch.color }} />
-                </div>
-                <div
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-bold tracking-[0.2em] uppercase"
-                  style={{ background: `${ch.bgColor}`, border: `1px solid ${ch.borderColor}`, color: ch.color }}
-                >
-                  <ch.badgeIcon className="w-2.5 h-2.5" />
-                  {ch.badge}
-                </div>
-              </div>
-
-              {/* Platform name */}
-              <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-stone-600 mb-1">{ch.platform}</p>
-              <h3 className="text-xl font-serif font-bold text-accent mb-3 tracking-wide group-hover:text-white transition-colors duration-300">
-                {ch.handle}
-              </h3>
-
-              {/* Description */}
-              <p className="text-stone-500 text-sm font-light leading-relaxed mb-6 flex-1">
-                {ch.description}
-              </p>
-
-              {/* CTA row */}
-              <div className="flex items-center justify-between pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
-                <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: ch.color }}>{ch.stat}</span>
-                <ExternalLink className="w-4 h-4 text-stone-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-stone-400 transition-all duration-300" />
-              </div>
-            </motion.a>
-          ))}
-        </div>
-
-        {/* Bottom CTA strip */}
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <p className="text-stone-600 text-xs tracking-[0.2em] uppercase font-medium mb-4">
-            Live readings every week — don't miss out
-          </p>
-          <a
-            href="https://www.tiktok.com/@pinkpansypublishing"
-            target="_blank"
-            rel="noopener noreferrer"
-            id="community-live-cta"
-            className="cta-shine btn-glass-primary inline-flex px-8 py-3.5 rounded-sm"
-          >
-            <Radio className="mr-2 w-4 h-4" />
-            Watch Live on TikTok
-          </a>
         </motion.div>
       </div>
+
+      {/* Individual Platform Sections */}
+      {PLATFORMS.map((p, idx) => (
+        <div
+          key={p.id}
+          id={p.id}
+          className="relative py-24 overflow-hidden"
+          style={{
+            background: idx % 2 === 0
+              ? 'linear-gradient(to right, #050203, #07020a)'
+              : 'linear-gradient(to right, #07020a, #050203)',
+            borderTop: '1px solid rgba(255,255,255,0.03)',
+          }}
+        >
+          {/* Ambient glow */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div
+              className="absolute rounded-full blur-[160px]"
+              style={{
+                background: p.bgGlow,
+                width: '500px',
+                height: '500px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                [idx % 2 === 0 ? 'right' : 'left']: '-100px',
+              }}
+            />
+          </div>
+
+          <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+            <div className={`flex flex-col ${idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-20 items-center`}>
+
+              {/* Left/Right: Platform Identity Block */}
+              <motion.div
+                className="w-full lg:w-5/12"
+                initial={{ opacity: 0, x: idx % 2 === 0 ? -40 : 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+              >
+                {/* Big platform icon */}
+                <div
+                  className="w-20 h-20 flex items-center justify-center rounded-sm mb-8 shadow-2xl"
+                  style={{
+                    background: `${p.bgGlow}`,
+                    border: `1px solid ${p.borderColor}`,
+                    boxShadow: `0 0 40px ${p.bgGlow}`,
+                  }}
+                >
+                  <p.icon className="w-10 h-10" style={{ color: p.accentColor }} />
+                </div>
+
+                {/* Live badge */}
+                {p.liveBadge && (
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-5"
+                    style={{ background: 'rgba(176,18,24,0.1)', border: '1px solid rgba(176,18,24,0.3)' }}>
+                    <span className="w-2 h-2 rounded-full bg-cta animate-ping" style={{ background: '#b01218' }} />
+                    <span className="text-[10px] font-bold tracking-[0.25em] uppercase" style={{ color: '#b01218' }}>Live Weekly</span>
+                  </div>
+                )}
+
+                <p className="text-xs font-bold tracking-[0.3em] uppercase mb-2" style={{ color: p.accentColor }}>{p.platform}</p>
+                <h3 className="text-3xl md:text-4xl font-serif font-black text-accent mb-3 tracking-wide leading-tight">
+                  {p.headline}
+                </h3>
+                <p className="text-stone-400 italic font-serif text-base mb-6 leading-relaxed">
+                  "{p.tagline}"
+                </p>
+                <p className="text-stone-500 text-sm font-light leading-relaxed mb-8">
+                  {p.description}
+                </p>
+
+                {/* Handle */}
+                <p className="text-xs font-bold tracking-wider mb-6" style={{ color: p.accentColor }}>
+                  {p.handle}
+                </p>
+
+                {/* CTA */}
+                <a
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  id={`cta-${p.id}`}
+                  className="cta-shine btn-glass-primary inline-flex px-7 py-3.5 rounded-sm"
+                  style={{ borderColor: p.borderColor }}
+                >
+                  <p.icon className="mr-2.5 w-4 h-4" style={{ color: p.accentColor }} />
+                  {p.ctaLabel}
+                  <ExternalLink className="ml-2 w-3.5 h-3.5 opacity-50" />
+                </a>
+              </motion.div>
+
+              {/* Content Types Grid */}
+              <motion.div
+                className="w-full lg:w-7/12 grid grid-cols-1 sm:grid-cols-2 gap-4"
+                initial={{ opacity: 0, x: idx % 2 === 0 ? 40 : -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.15 }}
+              >
+                {p.contentTypes.map((ct, i) => (
+                  <motion.div
+                    key={ct.label}
+                    className="group p-6 rounded-sm"
+                    style={{
+                      background: 'rgba(255,255,255,0.02)',
+                      border: '1px solid rgba(255,255,255,0.05)',
+                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 + i * 0.08 }}
+                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.borderColor = p.borderColor;
+                      (e.currentTarget as HTMLElement).style.background = p.bgGlow;
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.05)';
+                      (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.02)';
+                    }}
+                  >
+                    <ct.icon className="w-5 h-5 mb-4" style={{ color: p.accentColor }} />
+                    <h4 className="text-sm font-bold text-accent mb-2 tracking-wide font-serif">{ct.label}</h4>
+                    <p className="text-stone-600 text-xs font-light leading-relaxed">{ct.desc}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      ))}
     </section>
   );
 }
